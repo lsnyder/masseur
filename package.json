@@ -1,0 +1,41 @@
+{
+  "name": "masseur",
+  "version": "0.0.0",
+  "description": "Simple DSL for data transform",
+  "main": "index.js",
+  "scripts": {
+    "test": "grunt ci --no-color --NODE_ENV=test"
+  },
+  "keywords": [
+    "data",
+    "transform"
+  ],
+  "author": "Aaron Qian <aq1018@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aq1018/masseur.git"
+  },
+  "bugs": {
+    "url": "https://github.com/aq1018/masseur/issues"
+  },
+  "dependencies": {
+
+  },
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "grunt-cli": "~0.1.13",
+    "grunt-contrib-jshint": "~0.7.1",
+    "jshint-stylish": "~0.1.3",
+    "load-grunt-tasks": "~0.2.1",
+    "time-grunt": "~0.2.5",
+    "grunt-mocha-test": "~0.8.1",
+    "mocha": "~1.16.2",
+    "chai": "~1.8.1",
+    "sinon": "~1.7.3",
+    "grunt-release": "^0.7.0"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  }
+}
