@@ -40,14 +40,33 @@ var transformer = (new Transform())
   .use(Processors.uppercase);
 
 
-describe('Transform', function() {
-  it('transforms', function(){
-    var output = transformer.transform(input);
-
-    expect(output.username).to.equal('aq1018');
-    expect(output.first).to.equal('*** aaron ***');
-    expect(output.last).to.equal('QIAN');
-    expect(output).not.to.have.property('phone');
+describe('masseur', function() {
+  it('has Transform', function() {
+    expect(masseur).to.have.property('Transform');
   });
 
+  it('has Stream', function() {
+    expect(masseur).to.have.property('Stream');
+  });
+
+  it('has Property', function() {
+    expect(masseur).to.have.property('Property');
+  });
+
+  describe('Transform', function() {
+    it('transforms input data', function(){
+      var output = transformer.transform(input);
+
+      expect(output.username).to.equal('aq1018');
+      expect(output.first).to.equal('*** aaron ***');
+      expect(output.last).to.equal('QIAN');
+      expect(output).not.to.have.property('phone');
+    });
+
+    it('transforms streams', function(){
+      var stream = transformer.createStream();
+      expect(stream.transformer).to.equal(transformer);
+      expect(stream).to.be.an.instanceof(masseur.Stream);
+    });
+  });
 });
