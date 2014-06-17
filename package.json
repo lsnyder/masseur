@@ -1,6 +1,6 @@
 {
   "name": "masseur",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Simple DSL for data transform",
   "main": "lib/index.js",
   "scripts": {
@@ -19,9 +19,7 @@
   "bugs": {
     "url": "https://github.com/aq1018/masseur/issues"
   },
-  "dependencies": {
-
-  },
+  "dependencies": {},
   "devDependencies": {
     "grunt": "~0.4.2",
     "grunt-cli": "~0.1.13",
