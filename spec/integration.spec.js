@@ -53,6 +53,12 @@ describe('masseur', function() {
     expect(masseur).to.have.property('Property');
   });
 
+  it('has Processors', function() {
+    expect(masseur).to.have.property('Processors');
+    expect(masseur.Processors).to.have.property('collection');
+    expect(masseur.Processors).to.have.property('member');
+  });
+
   describe('Transform', function() {
     it('transforms input data', function(){
       var output = transformer.transform(input);
