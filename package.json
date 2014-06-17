@@ -2,7 +2,7 @@
   "name": "masseur",
   "version": "0.0.0",
   "description": "Simple DSL for data transform",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
     "test": "grunt ci --no-color --NODE_ENV=test"
   },

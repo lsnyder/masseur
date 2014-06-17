@@ -2,107 +2,52 @@
 
 'use strict';
 
-var yajm = require('../index');
+var masseur = require('../lib');
 var expect = require('chai').expect;
-var Model = yajm.Model;
-
-var Contact = Model.define({
-  firstName: {
-    type: String
+var Transform = masseur.Transform;
+var Processors = {
+  lowercase: function(val) {
+    return val.toString().toLowerCase();
   },
 
-  lastName: {
-    type: String
+  uppercase: function(val) {
+    return val.toString().toUpperCase();
   },
 
-  emails: [{
-    label: String,
-    value: String
-  }]
-});
-
-var User = Model.define({
-  id: {
-    type: Number,
-    integer: true
-  },
-
-  alias: {
-    type: String,
-    default: 'n/a'
-  },
-
-  contacts: {
-    type: [Contact]
+  importantify: function(val) {
+    return '*** ' + val + ' ***';
   }
-});
+};
 
-describe('Model', function() {
-  it('works', function() {
-    var user = new User({
-      id: '1',
-      contacts: [{
-        firstName: 'aaron',
-        lastName: 'qian',
-        emails: [{
-          label: 'default',
-          value: 'aq1018@gmail.com'
-        }, {
-          label: 'fake',
-          value: 'idontexist@gmail.com'
-        }]
-      }]
-    });
+/*jshint camelcase: false */
+var input = {
+  first_name: 'Aaron',
+  last_name: 'qian',
+  username: 'aq1018',
+  phone: '123-456-789'
+};
+/*jshint camelcase: true */
 
-    expect(user.id).to.equal(1);
-    expect(user.contacts).to.have.length(1);
+var transformer = (new Transform())
+  .key('username')
 
-    var me = user.contacts[0];
+  .key('first')
+  .src('first_name')
+  .use(Processors.lowercase, Processors.importantify)
 
-    expect(me.firstName).to.equal('aaron');
-    expect(me.lastName).to.equal('qian');
+  .key('last')
+  .src('last_name')
+  .use(Processors.uppercase);
 
-    expect(me.emails).to.have.length(2);
 
-    var email1 = me.emails[0];
-    var email2 = me.emails[1];
+describe('Transform', function() {
+  it('transforms', function(){
+    var output = transformer.transform(input);
 
-    expect(email1.label).to.equal('default');
-    expect(email1.value).to.equal('aq1018@gmail.com');
-    expect(email2.label).to.equal('fake');
-    expect(email2.value).to.equal('idontexist@gmail.com');
-
+    expect(output.username).to.equal('aq1018');
+    expect(output.first).to.equal('*** aaron ***');
+    expect(output.last).to.equal('QIAN');
+    expect(output).not.to.have.property('phone');
   });
 
-  describe('default values', function(){
-    it('is empty array when type is collection', function() {
-      var user = new User();
-      expect(user.contacts).to.have.length(0);
-    });
-
-    it('equals to default value when default is set', function() {
-      var user = new User();
-      expect(user.alias).to.equal('n/a');
-    });
-
-    it('is null when type is not collection', function() {
-      var user = new User();
-      expect(user.id).to.eql(null);
-    });
-  });
-
-  describe('setter', function() {
-    it('coerces value', function() {
-      var user = new User();
-      user.id = '123';
-      expect(user.id).to.equal(123);
-    });
-
-    it('fails to set undefined properties', function() {
-      expect(function() {
-        var user = new User();
-        user.anUndefinedProperty = 'will blow up';
-      }).to.throw(TypeError);
-    });
-  });
 });
