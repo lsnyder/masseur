@@ -10,14 +10,17 @@
     "data",
     "transform"
   ],
-  "author": "Aaron Qian <aq1018@gmail.com>",
+  "author": {
+    "name": "Aaron Qian",
+    "email": "aq1018@gmail.com"
+  },
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/aq1018/masseur.git"
+    "url": "https://github.com/caagency/masseur.git"
   },
   "bugs": {
-    "url": "https://github.com/aq1018/masseur/issues"
+    "url": "https://github.com/caagency/masseur.git"
   },
   "dependencies": {},
   "devDependencies": {
@@ -35,5 +38,12 @@
   },
   "engines": {
     "node": ">=0.10.0"
-  }
+  },
+  "readme": "# Masseur\n\nSimple library for data transformation.\n\n## Install\n\n```\nnpm install masseur --save\n```\n\n## Usage\n\n```js\nvar Transform = require('masseur').Transform;\nvar Processors = require('masseur').Processors;\n\nvar transformer = (new Transform())\n  // copy directly from input\n  .key('userName')\n\n  // copy from input object's `first_name` field\n  .key('firstName')\n  .src('first_name')\n  // convert name to lowercase\n  .use(Processors.lowercase)\n  // filter out black listed words\n  .use(Processors.filter);\n\n\n// transform a single object\nvar output = trasformer.transform(input);\n\n// transform a stream of inputs\nvar transformStream = transfomer.createStream();\ntransformStream.pipe(inputStream);\n\n```\n",
+  "readmeFilename": "README.md",
+  "homepage": "https://github.com/aq1018/masseur",
+  "_id": "masseur@0.2.2",
+  "_shasum": "8ae40135ab579765787f4210e0cb7b17e9ea79aa",
+  "_from": "masseur@",
+  "_resolved": "https://registry.npmjs.org/masseur/-/masseur-0.2.2.tgz"
 }
